@@ -12,14 +12,15 @@ export async function POST(req: Request) {
   const {
     messages,
     files,
+    framework,
     projectId,
-  }: { messages: any[]; files: Record<string, FileNode>; projectId?: string } =
+  }: { messages: any[]; files: Record<string, FileNode>; framework?: string; projectId?: string } =
     await req.json();
 
-  const framework = "react";
+  const selectedFramework = framework || "react";
   messages.unshift({
     role: "system",
-    content: getGenerationPrompt(framework),
+    content: getGenerationPrompt(selectedFramework),
     providerOptions: {
       anthropic: { cacheControl: { type: "ephemeral" } },
     },
