@@ -1,9 +1,12 @@
 import { FrameworkTransformer, FrameworkId } from "./framework-transformer";
+import { ReactTransformer } from "./react-transformer";
 
 class FrameworkTransformerFactory {
   private transformers = new Map<string, FrameworkTransformer>();
 
-  constructor() {}
+  constructor() {
+    this.register(new ReactTransformer());
+  }
 
   register(transformer: FrameworkTransformer): void {
     this.transformers.set(transformer.id, transformer);
