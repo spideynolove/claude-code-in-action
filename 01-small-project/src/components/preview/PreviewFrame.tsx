@@ -3,10 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useFileSystem } from "@/lib/contexts/file-system-context";
 import { factory } from "@/lib/transformers/factory";
-import {
-  createImportMap,
-  createPreviewHTML,
-} from "@/lib/transform/jsx-transformer";
 import { AlertCircle } from "lucide-react";
 
 export function PreviewFrame() {
