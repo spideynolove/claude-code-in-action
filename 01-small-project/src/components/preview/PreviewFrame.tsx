@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useFileSystem } from "@/lib/contexts/file-system-context";
+import { factory } from "@/lib/transformers/factory";
 import {
   createImportMap,
   createPreviewHTML,
@@ -10,7 +11,8 @@ import { AlertCircle } from "lucide-react";
 
 export function PreviewFrame() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const { getAllFiles, refreshTrigger } = useFileSystem();
+  const { getAllFiles, refreshTrigger, framework } = useFileSystem();
+  const transformer = factory.create(framework);
   const [error, setError] = useState<string | null>(null);
   const [entryPoint, setEntryPoint] = useState<string>("/App.jsx");
   const [isFirstLoad, setIsFirstLoad] = useState(true);
@@ -27,14 +29,7 @@ export function PreviewFrame() {
 
         // Find the entry point - look for App.jsx, App.tsx, index.jsx, or index.tsx
         let foundEntryPoint = entryPoint;
-        const possibleEntries = [
-          "/App.jsx",
-          "/App.tsx",
-          "/index.jsx",
-          "/index.tsx",
-          "/src/App.jsx",
-          "/src/App.tsx",
-        ];
+        const possibleEntries = transformer.getEntryPoints();
 
         if (!files.has(entryPoint)) {
           const found = possibleEntries.find((path) => files.has(path));
@@ -74,8 +69,8 @@ export function PreviewFrame() {
           return;
         }
 
-        const { importMap, styles, errors } = createImportMap(files);
-        const previewHTML = createPreviewHTML(foundEntryPoint, importMap, styles, errors);
+        const { importMap, styles, errors } = transformer.getImportMap(files);
+        const previewHTML = transformer.generatePreviewHTML(foundEntryPoint, importMap, styles, errors);
 
         if (iframeRef.current) {
           const iframe = iframeRef.current;
