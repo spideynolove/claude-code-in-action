@@ -6,7 +6,7 @@ import { buildFileManagerTool } from "@/lib/tools/file-manager";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { getLanguageModel } from "@/lib/provider";
-import { generationPrompt } from "@/lib/prompts/generation";
+import { getGenerationPrompt } from "@/lib/prompts/generation";
 
 export async function POST(req: Request) {
   const {
@@ -16,9 +16,10 @@ export async function POST(req: Request) {
   }: { messages: any[]; files: Record<string, FileNode>; projectId?: string } =
     await req.json();
 
+  const framework = "react";
   messages.unshift({
     role: "system",
-    content: generationPrompt,
+    content: getGenerationPrompt(framework),
     providerOptions: {
       anthropic: { cacheControl: { type: "ephemeral" } },
     },
