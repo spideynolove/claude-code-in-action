@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LayoutSpec",
+  "type": "object",
+  "required": ["screen_id", "regions", "responsive_rules", "priority_order"],
+  "properties": {
+    "screen_id": { "type": "string" },
+    "regions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "role"],
+        "properties": {
+          "id": { "type": "string" },
+          "role": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "responsive_rules": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "priority_order": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

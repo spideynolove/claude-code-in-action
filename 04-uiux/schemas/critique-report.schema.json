@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CritiqueReport",
+  "type": "object",
+  "required": ["screen_id", "scores", "issues", "next_actions"],
+  "properties": {
+    "screen_id": { "type": "string" },
+    "scores": {
+      "type": "object",
+      "additionalProperties": {
+        "type": ["number", "string"]
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["layer", "severity", "message"],
+        "properties": {
+          "layer": {
+            "type": "string",
+            "enum": ["intent", "layout", "tokens", "components", "implementation", "accessibility"]
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          },
+          "message": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "next_actions": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TokenSpec",
+  "type": "object",
+  "required": ["themes", "semantic_tokens"],
+  "properties": {
+    "themes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "semantic_tokens": {
+      "type": "object",
+      "additionalProperties": {
+        "type": ["string", "number", "object", "array"]
+      }
+    },
+    "brand_axes": {
+      "type": "object",
+      "properties": {
+        "density": { "type": "string" },
+        "contrast": { "type": "string" },
+        "geometry": { "type": "string" },
+        "texture": { "type": "string" },
+        "ornament": { "type": "string" },
+        "motion": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

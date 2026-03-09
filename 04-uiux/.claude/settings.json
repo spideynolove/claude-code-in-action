@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/enforce-token-usage.sh"
+          },
+          {
+            "type": "command",
+            "command": "./hooks/run-typecheck.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
