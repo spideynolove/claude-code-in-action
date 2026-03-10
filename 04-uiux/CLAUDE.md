@@ -141,6 +141,29 @@ When the task requires whole-repo understanding:
 - prefer summaries over dumping large raw files
 - read only the files needed for the current task
 
+### Generating repomix outputs
+
+Run before whole-repo tasks (full redesigns, cross-component spec work):
+
+```bash
+cd /home/hung/Public/SPIDEY/claude-code-in-action/04-uiux
+repomix
+```
+
+This uses `repomix.config.json` and writes `repomix-output/repo.xml`.
+
+For a human-readable summary alongside:
+
+```bash
+repomix --style markdown -o repomix-output/summary.md
+```
+
+Via MCP (preferred during active sessions — no file writes):
+
+```
+mcporter call repomix.pack_codebase(directory: "/home/hung/Public/SPIDEY/claude-code-in-action/04-uiux", compress: true)
+```
+
 ## Figma stance
 
 Figma integration is optional.

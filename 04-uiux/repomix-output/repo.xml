@@ -1,0 +1,1031 @@
+This file is a merged representation of a subset of the codebase, containing files not matching ignore patterns, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of a subset of the repository's contents that is considered the most important context.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching these patterns are excluded: repomix-output/**, *.lock, dist/**, node_modules/**, .next/**, *.min.js, *.min.css
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.claude/
+  commands/
+    ui-brief.md
+    ui-build.md
+    ui-critique.md
+    ui-layout.md
+    ui-repair.md
+    ui-style.md
+  subagents/
+    codegen-engineer.md
+    component-mapper.md
+    layout-planner.md
+    token-architect.md
+    ux-reasoner.md
+    visual-critic.md
+  settings.json
+hooks/
+  detect-duplicate-components.sh
+  enforce-token-usage.sh
+  run-axe.sh
+  run-storybook-smoke.sh
+  run-typecheck.sh
+  run-visual-diff.sh
+schemas/
+  component-spec.schema.json
+  critique-report.schema.json
+  intent-spec.schema.json
+  layout-spec.schema.json
+  token-spec.schema.json
+AGENTS.md
+CLAUDE.md
+repomix.config.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".claude/commands/ui-brief.md">
+Create or update an `IntentSpec` for the current task.
+
+Arguments: $ARGUMENTS
+
+## Your job
+
+Convert the request into a structured product/UI intent document.
+
+## Must include
+
+- product type
+- primary user
+- main jobs to be done
+- risk level
+- interaction density
+- tone
+- key constraints
+- avoid_styles
+- preferred_styles
+- accessibility expectations
+- responsive expectations
+
+## Rules
+
+- focus on user goals before visuals
+- infer missing but reasonable constraints
+- keep it implementation-aware
+- do not generate components or code here
+- save the result as structured JSON or update the current intent file
+</file>
+
+<file path=".claude/commands/ui-build.md">
+Build or update implementation from approved stage specs.
+
+Arguments: $ARGUMENTS
+
+## Required inputs
+
+- IntentSpec
+- LayoutSpec
+- TokenSpec
+- ComponentSpec, if present
+
+## Output targets
+
+- React + TypeScript
+- token-driven styling
+- stories for changed interactive components
+- responsive implementation
+
+## Rules
+
+- search for reusable components first
+- avoid raw hex values and arbitrary spacing
+- avoid adding new components unless reuse is clearly insufficient
+- implement required interaction states
+- keep structure aligned with the layout spec
+</file>
+
+<file path=".claude/commands/ui-critique.md">
+Create a `CritiqueReport` for the current task.
+
+Arguments: $ARGUMENTS
+
+## Evaluate at least
+
+- hierarchy
+- consistency
+- novelty / non-genericity
+- accessibility
+- responsiveness
+- implementation cleanliness
+
+## Required output
+
+- numeric or labeled scores
+- concrete issues
+- affected layer for each issue
+- prioritized next actions
+
+## Layer mapping
+
+- hierarchy issue -> layout
+- generic style issue -> tokens/style system
+- state inconsistency -> components
+- hardcoded values -> token / implementation
+- a11y issue -> component implementation
+</file>
+
+<file path=".claude/commands/ui-layout.md">
+Create or update a `LayoutSpec` for the current task.
+
+Arguments: $ARGUMENTS
+
+## Your job
+
+Design the structural layout of the screen independent of final styling.
+
+## Must include
+
+- screen_id
+- top-level regions
+- role of each region
+- priority order
+- responsive rules
+- information hierarchy
+- primary action placement
+- overflow behavior for smaller screens
+
+## Rules
+
+- preserve imported structure when working from an existing frame
+- solve hierarchy before decoration
+- do not hardcode visual style here
+- prefer reusable layout patterns already present in the repo
+</file>
+
+<file path=".claude/commands/ui-repair.md">
+Repair the current UI based on the latest CritiqueReport.
+
+Arguments: $ARGUMENTS
+
+## Your job
+
+Fix only the failing layers and avoid unrelated drift.
+
+## Rules
+
+- identify the target layer for each issue before editing
+- do not restyle the whole screen for a small implementation bug
+- do not change layout when the issue is only token-related
+- update stories if interaction or states changed
+- preserve component reuse discipline
+</file>
+
+<file path=".claude/commands/ui-style.md">
+Create or update a `TokenSpec` for the current task.
+
+Arguments: $ARGUMENTS
+
+## Your job
+
+Generate a semantic style system for the requested UI.
+
+## Must include
+
+- themes
+- semantic color tokens
+- typography tokens
+- spacing scale
+- radius scale
+- motion tokens
+- density
+- contrast
+- geometry
+- texture
+- ornament
+- anti-generic constraints
+
+## Rules
+
+- avoid cliché AI styles unless explicitly requested
+- prefer semantic token names over raw values
+- ensure light/dark theme compatibility
+- ensure accessibility-aware contrast intent
+- do not emit component code here
+</file>
+
+<file path=".claude/subagents/codegen-engineer.md">
+---
+name: codegen-engineer
+description: Use when approved specs need to be turned into React + TypeScript + stories with token-driven styling.
+tools: Read, Grep, Glob, Edit, Bash
+---
+
+You are a UI implementation specialist.
+
+Your responsibility is to turn approved specs into production-ready code with minimal drift.
+
+## Priorities
+
+1. preserve layout intent
+2. preserve token discipline
+3. preserve component reuse
+4. keep code readable and maintainable
+
+## Rules
+
+- no raw hex values unless explicitly justified
+- no arbitrary spacing if a token exists
+- add or update stories for changed components
+- implement keyboard-relevant states where appropriate
+- keep changes scoped to the task
+</file>
+
+<file path=".claude/subagents/component-mapper.md">
+---
+name: component-mapper
+description: Use when a task needs mapping from layout and intent to reusable components, variants, and interaction states.
+tools: Read, Grep, Glob, Edit
+---
+
+You are a component system specialist.
+
+Your responsibility is to map UI needs onto reusable primitives and composites.
+
+## Produce
+
+- component list
+- source of each component (reuse, extend, or new)
+- legal variants
+- states
+- prop expectations
+- composition notes
+
+## Rules
+
+- reuse before extending
+- extend before creating new
+- every interactive component should define states
+- avoid duplicate component invention
+</file>
+
+<file path=".claude/subagents/layout-planner.md">
+---
+name: layout-planner
+description: Use when a task needs screen structure, hierarchy, responsive regions, or a LayoutSpec independent of final visual styling.
+tools: Read, Grep, Glob, Edit
+---
+
+You are a layout planning specialist.
+
+Your responsibility is to transform intent into structural screen composition.
+
+## Produce
+
+- region tree
+- hierarchy
+- focus order
+- responsive rules
+- priority order
+- mobile/tablet/desktop adaptation logic
+
+## Rules
+
+- preserve imported frame structure unless instructed otherwise
+- solve hierarchy before decoration
+- prefer reusable layout patterns already present in the repo
+- ensure important actions remain visible and discoverable
+</file>
+
+<file path=".claude/subagents/token-architect.md">
+---
+name: token-architect
+description: Use when a task needs semantic tokens, theme logic, anti-generic style controls, or a TokenSpec.
+tools: Read, Grep, Glob, Edit
+---
+
+You are a semantic design-token architect.
+
+Your responsibility is to create a coherent style system that supports distinctive UI without breaking consistency.
+
+## Produce
+
+- semantic token groups
+- theme variants
+- density/contrast/geometry/texture axes
+- motion guidance
+- anti-generic constraints
+
+## Rules
+
+- prefer semantic names over raw values
+- do not invent arbitrary one-off values when a scale should exist
+- encode brand direction as system rules, not as one-off decoration
+- avoid cliché AI aesthetics unless explicitly requested
+</file>
+
+<file path=".claude/subagents/ux-reasoner.md">
+---
+name: ux-reasoner
+description: Use when a UI task needs product intent, user-task analysis, content prioritization, or a structured IntentSpec before layout or styling.
+tools: Read, Grep, Glob, Edit
+---
+
+You are a UX reasoning specialist.
+
+Your responsibility is to translate a vague UI request into a structured product and user intent model.
+
+## Produce
+
+- product type
+- primary user
+- key user jobs
+- trust/risk level
+- interaction density
+- content priorities
+- primary actions
+- constraints
+- avoid_styles
+- preferred_styles
+
+## Never do
+
+- final code generation
+- detailed token creation
+- arbitrary visual styling decisions without product reasoning
+
+## Heuristic priorities
+
+1. What must the user accomplish?
+2. What information matters most?
+3. What can go wrong if the UI is unclear?
+4. What visual direction supports the product instead of merely decorating it?
+</file>
+
+<file path=".claude/subagents/visual-critic.md">
+---
+name: visual-critic
+description: Use when generated UI must be evaluated for hierarchy, consistency, novelty, accessibility, or implementation drift.
+tools: Read, Grep, Glob, Edit, Bash
+---
+
+You are a UI critique specialist.
+
+Your responsibility is to identify what is wrong, why it is wrong, and which layer must change.
+
+## Output
+
+A CritiqueReport containing:
+
+- scores
+- issues
+- severity
+- target layer
+- next actions
+
+## Rules
+
+- prefer precise critique over vague taste judgments
+- separate style issues from layout issues
+- separate token issues from component issues
+- identify generic AI clichés when present
+- avoid suggesting broad rewrites if a narrow repair is sufficient
+</file>
+
+<file path=".claude/settings.json">
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/enforce-token-usage.sh"
+          },
+          {
+            "type": "command",
+            "command": "./hooks/run-typecheck.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+</file>
+
+<file path="hooks/detect-duplicate-components.sh">
+#!/usr/bin/env bash
+set -euo pipefail
+
+new_components="$(git diff --name-only --cached 2>/dev/null | grep -E 'src/.*/components/.*\.(tsx|ts)$' || true)"
+[ -z "$new_components" ] && exit 0
+
+echo "Duplicate component check placeholder:"
+echo "Review whether newly added components duplicate existing catalog patterns."
+</file>
+
+<file path="hooks/enforce-token-usage.sh">
+#!/usr/bin/env bash
+set -euo pipefail
+
+changed_files="$(git diff --name-only --cached 2>/dev/null || true)"
+[ -z "$changed_files" ] && changed_files="$(git diff --name-only 2>/dev/null || true)"
+
+target_files="$(printf "%s\n" "$changed_files" | grep -E '\.(tsx|ts|jsx|js|css)$' || true)"
+[ -z "$target_files" ] && exit 0
+
+failed=0
+
+while IFS= read -r file; do
+  [ -f "$file" ] || continue
+
+  if grep -nE '#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\b' "$file" >/dev/null; then
+    echo "Token enforcement failed in $file: raw hex color detected"
+    failed=1
+  fi
+
+  if grep -nE '\b(round(ed)?-\[[^]]+\]|p[trblxy]?-\[[^]]+\]|m[trblxy]?-\[[^]]+\]|gap-\[[^]]+\]|shadow-\[[^]]+\])' "$file" >/dev/null; then
+    echo "Token enforcement warning in $file: arbitrary Tailwind value detected"
+    failed=1
+  fi
+done <<< "$target_files"
+
+if [ "$failed" -ne 0 ]; then
+  echo "Use semantic tokens or approved scale values instead of raw one-off styling."
+  exit 2
+fi
+</file>
+
+<file path="hooks/run-axe.sh">
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Axe hook placeholder: run your Playwright + axe integration here."
+</file>
+
+<file path="hooks/run-storybook-smoke.sh">
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ -f package.json ] && jq -e '.scripts["storybook"]' package.json >/dev/null 2>&1; then
+  echo "Storybook smoke hook placeholder: wire this to your actual CI or preview command."
+fi
+</file>
+
+<file path="hooks/run-typecheck.sh">
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ -f package.json ]; then
+  if jq -e '.scripts.typecheck' package.json >/dev/null 2>&1; then
+    npm run typecheck
+    exit 0
+  fi
+
+  if jq -e '.scripts.build' package.json >/dev/null 2>&1; then
+    npm run build
+    exit 0
+  fi
+fi
+
+exit 0
+</file>
+
+<file path="hooks/run-visual-diff.sh">
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Visual diff hook placeholder: run screenshot regression here."
+</file>
+
+<file path="schemas/component-spec.schema.json">
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ComponentSpec",
+  "type": "object",
+  "required": ["components"],
+  "properties": {
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "source"],
+        "properties": {
+          "name": { "type": "string" },
+          "source": {
+            "type": "string",
+            "enum": ["catalog", "extend", "new"]
+          },
+          "variants": { "type": "object" },
+          "states": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "props": { "type": "object" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}
+</file>
+
+<file path="schemas/critique-report.schema.json">
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CritiqueReport",
+  "type": "object",
+  "required": ["screen_id", "scores", "issues", "next_actions"],
+  "properties": {
+    "screen_id": { "type": "string" },
+    "scores": {
+      "type": "object",
+      "additionalProperties": {
+        "type": ["number", "string"]
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["layer", "severity", "message"],
+        "properties": {
+          "layer": {
+            "type": "string",
+            "enum": ["intent", "layout", "tokens", "components", "implementation", "accessibility"]
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          },
+          "message": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "next_actions": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}
+</file>
+
+<file path="schemas/intent-spec.schema.json">
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "IntentSpec",
+  "type": "object",
+  "required": [
+    "product_type",
+    "primary_user",
+    "main_jobs",
+    "risk_level",
+    "interaction_density",
+    "tone",
+    "constraints"
+  ],
+  "properties": {
+    "product_type": { "type": "string" },
+    "primary_user": { "type": "string" },
+    "main_jobs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "interaction_density": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "tone": { "type": "string" },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "must_support_dark_mode": { "type": "boolean" },
+        "must_be_keyboard_accessible": { "type": "boolean" },
+        "avoid_styles": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "preferred_styles": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
+</file>
+
+<file path="schemas/layout-spec.schema.json">
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LayoutSpec",
+  "type": "object",
+  "required": ["screen_id", "regions", "responsive_rules", "priority_order"],
+  "properties": {
+    "screen_id": { "type": "string" },
+    "regions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "role"],
+        "properties": {
+          "id": { "type": "string" },
+          "role": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "responsive_rules": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "priority_order": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}
+</file>
+
+<file path="schemas/token-spec.schema.json">
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TokenSpec",
+  "type": "object",
+  "required": ["themes", "semantic_tokens"],
+  "properties": {
+    "themes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "semantic_tokens": {
+      "type": "object",
+      "additionalProperties": {
+        "type": ["string", "number", "object", "array"]
+      }
+    },
+    "brand_axes": {
+      "type": "object",
+      "properties": {
+        "density": { "type": "string" },
+        "contrast": { "type": "string" },
+        "geometry": { "type": "string" },
+        "texture": { "type": "string" },
+        "ornament": { "type": "string" },
+        "motion": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
+</file>
+
+<file path="AGENTS.md">
+# Project instructions for Codex
+
+This repository builds an AI-assisted UI generation workflow.
+
+## Primary behavior
+
+- Respect the existing architecture.
+- Prefer minimal, local-first solutions.
+- Avoid introducing paid external dependencies by default.
+- Prefer Repomix artifacts for broad repo context when needed.
+- Follow the same layered workflow as Claude Code.
+
+## Required stage order
+
+For non-trivial UI work, reason in this order:
+
+1. IntentSpec
+2. LayoutSpec
+3. TokenSpec
+4. ComponentSpec
+5. implementation
+6. CritiqueReport
+7. repair
+
+## Non-negotiable rules
+
+- Do not generate final UI in one shot unless the task is explicitly trivial.
+- Do not introduce raw hex values when semantic tokens should exist.
+- Do not create duplicate components if an existing one can be extended.
+- Do not use arbitrary spacing/radius/shadow values without justification.
+- Do not default to generic modern SaaS styling.
+
+## Preferred output
+
+- React + TypeScript
+- semantic token JSON
+- Storybook stories
+- token-driven Tailwind
+
+## If broad codebase context is needed
+
+Read from:
+
+- `repomix-output/repo.xml`
+- `repomix-output/summary.md`
+
+before scanning many source files.
+
+## If creating or editing UI
+
+Check:
+
+- existing tokens
+- existing components
+- existing stories
+- existing responsive patterns
+
+before adding anything new.
+
+## If critiquing UI
+
+Assess at least:
+
+- hierarchy
+- consistency
+- novelty
+- accessibility
+- responsive behavior
+- cleanliness of implementation
+</file>
+
+<file path="CLAUDE.md">
+# UIUX AI Workflow
+
+This repository builds a UI generation workflow that produces distinctive, production-ready interfaces instead of generic AI-generated layouts.
+
+## Operating principles
+
+- Treat Claude Code as the primary operator.
+- Treat Codex as a compatible secondary worker.
+- Prefer local-first, low-cost workflows.
+- Use Repomix output when broad codebase context is needed.
+- Avoid API-key-dependent services unless clearly necessary.
+- Do not rely on external paid context providers by default.
+
+## Core rule
+
+Never generate final UI in a single shot.
+
+Always decompose work into these stages:
+
+1. IntentSpec
+2. LayoutSpec
+3. TokenSpec
+4. ComponentSpec
+5. UI assembly
+6. CritiqueReport
+7. targeted repair
+
+## Design goals
+
+- distinctive visual identity
+- reusable components
+- semantic token system
+- accessibility
+- responsive behavior
+- production-ready React + TypeScript output
+- low drift between screens
+- minimal hardcoded styling
+
+## Anti-generic rules
+
+Avoid these default AI clichés unless explicitly requested:
+
+- purple/indigo gradient-heavy visual direction
+- glassmorphism as a default
+- excessive rounded corners
+- decorative shadows everywhere
+- "safe SaaS dashboard" styling without product-specific reasoning
+- arbitrary Tailwind values when semantic tokens should exist
+
+## Required workflow
+
+For any non-trivial UI task:
+
+1. infer product and user intent
+2. write or update `IntentSpec`
+3. write or update `LayoutSpec`
+4. write or update `TokenSpec`
+5. write or update `ComponentSpec`
+6. generate or update implementation
+7. run critique
+8. repair only the failing layer
+
+## Layer responsibilities
+
+- IntentSpec: user goals, task priorities, risk, tone, density, content priorities
+- LayoutSpec: hierarchy, regions, responsive structure
+- TokenSpec: semantic colors, spacing, type, radius, motion, themes
+- ComponentSpec: primitives, composites, states, legal variants
+- CritiqueReport: hierarchy, novelty, consistency, accessibility, implementation drift
+
+## Output defaults
+
+Prefer:
+
+- React + TypeScript
+- semantic token JSON
+- Tailwind driven by CSS variables / theme variables
+- Storybook stories for component states
+- Playwright for runtime inspection
+
+## Refactoring rules
+
+Before creating a new component:
+
+- search existing components first
+- reuse existing tokens first
+- reuse existing layout patterns first
+- only create a new component if the need is real and repeated
+
+## Styling rules
+
+- no raw hex colors in component code unless explicitly justified
+- no inline spacing values when a token should exist
+- no arbitrary radius/shadow values if tokens can represent them
+- dark mode must use semantic token mapping, not ad hoc overrides
+
+## Interaction rules
+
+Every interactive component should consider:
+
+- hover
+- focus-visible
+- pressed
+- disabled
+- loading
+- empty
+- error
+
+When relevant, also include:
+
+- optimistic state
+- skeleton
+- success confirmation
+- keyboard support
+
+## Critique rules
+
+When critiquing output, score at least:
+
+- hierarchy
+- consistency
+- novelty / non-genericity
+- accessibility
+- responsiveness
+- implementation cleanliness
+
+When fixing output, modify the correct layer:
+
+- hierarchy issue -> LayoutSpec
+- generic look -> TokenSpec or style direction
+- component inconsistency -> ComponentSpec
+- hardcoded values -> TokenSpec / implementation cleanup
+- broken focus or ARIA -> component implementation
+- broken responsive composition -> LayoutSpec
+
+## Context usage
+
+When the task requires whole-repo understanding:
+
+- prefer `repomix-output/` artifacts
+- prefer summaries over dumping large raw files
+- read only the files needed for the current task
+
+### Generating repomix outputs
+
+Run before whole-repo tasks (full redesigns, cross-component spec work):
+
+```bash
+cd /home/hung/Public/SPIDEY/claude-code-in-action/04-uiux
+repomix
+```
+
+This uses `repomix.config.json` and writes `repomix-output/repo.xml`.
+
+For a human-readable summary alongside:
+
+```bash
+repomix --style markdown -o repomix-output/summary.md
+```
+
+Via MCP (preferred during active sessions — no file writes):
+
+```
+mcporter call repomix.pack_codebase(directory: "/home/hung/Public/SPIDEY/claude-code-in-action/04-uiux", compress: true)
+```
+
+## Figma stance
+
+Figma integration is optional.
+
+If a Figma frame is imported:
+
+- preserve structure first
+- then improve tokens
+- then improve components
+- then improve interactions
+
+Do not destroy the original layout unless explicitly asked.
+
+## Codex compatibility
+
+Keep shared concepts aligned with `AGENTS.md`:
+
+- same stage contracts
+- same anti-generic rules
+- same token discipline
+- same component reuse policy
+
+## Definition of done
+
+A UI task is not done until:
+
+- specs are internally consistent
+- implementation builds
+- changed stories render
+- accessibility checks pass or known failures are documented
+- token usage is consistent
+- output is not obviously generic
+</file>
+
+<file path="repomix.config.json">
+{
+  "output": {
+    "filePath": "repomix-output/repo.xml",
+    "style": "xml",
+    "compress": false,
+    "removeComments": false,
+    "showLineNumbers": false,
+    "fileSummary": true,
+    "directoryStructure": true
+  },
+  "ignore": {
+    "useGitignore": true,
+    "useDotIgnore": true,
+    "customPatterns": [
+      "repomix-output/**",
+      "*.lock",
+      "dist/**",
+      "node_modules/**",
+      ".next/**",
+      "*.min.js",
+      "*.min.css"
+    ]
+  },
+  "tokenCount": {
+    "encoding": "o200k_base"
+  }
+}
+</file>
+
+</files>

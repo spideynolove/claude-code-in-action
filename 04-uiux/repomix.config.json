@@ -1,0 +1,27 @@
+{
+  "output": {
+    "filePath": "repomix-output/repo.xml",
+    "style": "xml",
+    "compress": false,
+    "removeComments": false,
+    "showLineNumbers": false,
+    "fileSummary": true,
+    "directoryStructure": true
+  },
+  "ignore": {
+    "useGitignore": true,
+    "useDotIgnore": true,
+    "customPatterns": [
+      "repomix-output/**",
+      "*.lock",
+      "dist/**",
+      "node_modules/**",
+      ".next/**",
+      "*.min.js",
+      "*.min.css"
+    ]
+  },
+  "tokenCount": {
+    "encoding": "o200k_base"
+  }
+}
