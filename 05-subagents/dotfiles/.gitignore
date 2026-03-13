@@ -1,0 +1,9 @@
+# Never commit these
+.claude/plugins/
+.claude/projects/
+.claude/backups/
+.claude/cache/
+.claude/debug/
+.claude/file-history/
+.claude/.credentials.json
+.mcporter/
