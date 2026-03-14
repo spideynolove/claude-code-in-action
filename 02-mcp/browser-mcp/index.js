@@ -1,4 +1,4 @@
-import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import { Server as McpServer } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import { chromium } from "playwright";
@@ -18,8 +18,8 @@ async function getPage() {
   return page;
 }
 
-const server = new Server(
-  { name: "real-browser", version: "1.0.0" },
+const server = new McpServer(
+  { name: "browser-mcp", version: "1.0.0" },
   { capabilities: { tools: {} } }
 );
 
@@ -125,7 +125,7 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
         const skip = ["script", "style", "noscript", "nav", "header", "footer"];
         const body = document.body.cloneNode(true);
         body.querySelectorAll(skip.join(",")).forEach(el => el.remove());
-        return body.innerText.replace(/\n{3,}/g, "\n\n").trim().slice(0, 15000);
+        return body.innerText.replace(/\n{3,}/g, "\n\n").trim().slice(0, 500000);
       });
       return { content: [{ type: "text", text }] };
     }
@@ -151,7 +151,7 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
 
     if (name === "evaluate") {
       const result = await p.evaluate(new Function(`return (${args.script})()`));
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2).slice(0, 10000) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2).slice(0, 500000) }] };
     }
 
     if (name === "snapshot") {

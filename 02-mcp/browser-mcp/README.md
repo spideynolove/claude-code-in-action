@@ -21,7 +21,7 @@ A lightweight MCP server that connects Claude to **your real running browser** v
 ## How It Works
 
 ```
-Claude → mcporter → real-browser MCP → CDP (ws://localhost:9222) → Your Chromium
+Claude → mcporter → browser-mcp MCP → CDP (ws://localhost:9222) → Your Chromium
 ```
 
 **CDP (Chrome DevTools Protocol)** is built into every Chromium browser. It exposes a WebSocket API that lets any program navigate, click, read DOM, and run JavaScript — the same thing Playwright, Puppeteer, and Selenium all use under the hood. Stagehand and BrowserBase are just this + cloud hosting + a price tag.
@@ -60,7 +60,7 @@ Edit `~/.mcporter/mcporter.json`:
 ```json
 {
   "mcpServers": {
-    "real-browser": {
+    "browser-mcp": {
       "command": "/home/hung/.nvm/versions/node/v22.22.0/bin/node",
       "args": ["/home/hung/Public/gits/claude-code-in-action/02-mcp/index.js"],
       "env": { "CDP_URL": "http://localhost:9222" }
@@ -75,33 +75,33 @@ Edit `~/.mcporter/mcporter.json`:
 
 ```bash
 # Navigate to a URL
-npx mcporter call real-browser.navigate url:"https://example.com"
+npx mcporter call browser-mcp.navigate url:"https://example.com"
 
 # Get lean visible text (strips nav/header/footer, max 15K chars)
-npx mcporter call real-browser.get_text
+npx mcporter call browser-mcp.get_text
 
 # Get compact snapshot: URL, title, interactive elements with CSS selectors
-npx mcporter call real-browser.snapshot
+npx mcporter call browser-mcp.snapshot
 
 # Get innerHTML of a specific element
-npx mcporter call real-browser.get_html selector:"#main-content"
+npx mcporter call browser-mcp.get_html selector:"#main-content"
 
 # Click an element
-npx mcporter call real-browser.click selector:"button.submit"
+npx mcporter call browser-mcp.click selector:"button.submit"
 
 # Type into a field (add submit:true to press Enter)
-npx mcporter call real-browser.type selector:"input#search" text:"hello world"
-npx mcporter call real-browser.type selector:"input#search" text:"hello world" submit:true
+npx mcporter call browser-mcp.type selector:"input#search" text:"hello world"
+npx mcporter call browser-mcp.type selector:"input#search" text:"hello world" submit:true
 
 # Run arbitrary JavaScript and return result
-npx mcporter call real-browser.evaluate script:"() => document.title"
+npx mcporter call browser-mcp.evaluate script:"() => document.title"
 
 # Wait for an element or text to appear
-npx mcporter call real-browser.wait selector:".results-loaded" timeout:10000
-npx mcporter call real-browser.wait text:"Welcome back" timeout:10000
+npx mcporter call browser-mcp.wait selector:".results-loaded" timeout:10000
+npx mcporter call browser-mcp.wait text:"Welcome back" timeout:10000
 
 # Take a screenshot
-npx mcporter call real-browser.screenshot path:"/tmp/page.png"
+npx mcporter call browser-mcp.screenshot path:"/tmp/page.png"
 ```
 
 ---
@@ -114,31 +114,31 @@ npx mcporter call real-browser.screenshot path:"/tmp/page.png"
 
 ### Scrape a course (like we did with Skilljar)
 ```bash
-npx mcporter call real-browser.navigate url:"https://course-site.com/lesson/1"
-npx mcporter call real-browser.get_text
+npx mcporter call browser-mcp.navigate url:"https://course-site.com/lesson/1"
+npx mcporter call browser-mcp.get_text
 # Repeat for each lesson URL
 ```
 
 ### Post to X / social media
 ```bash
-npx mcporter call real-browser.navigate url:"https://x.com/compose/tweet"
-npx mcporter call real-browser.click selector:"[data-testid=tweetTextarea_0]"
-npx mcporter call real-browser.type selector:"[data-testid=tweetTextarea_0]" text:"Hello world"
-npx mcporter call real-browser.click selector:"[data-testid=tweetButton]"
+npx mcporter call browser-mcp.navigate url:"https://x.com/compose/tweet"
+npx mcporter call browser-mcp.click selector:"[data-testid=tweetTextarea_0]"
+npx mcporter call browser-mcp.type selector:"[data-testid=tweetTextarea_0]" text:"Hello world"
+npx mcporter call browser-mcp.click selector:"[data-testid=tweetButton]"
 ```
 
 ### Login flow (for sites not already logged in)
 ```bash
-npx mcporter call real-browser.navigate url:"https://site.com/login"
-npx mcporter call real-browser.snapshot        # find input selectors
-npx mcporter call real-browser.type selector:"input[name=email]" text:"you@email.com"
-npx mcporter call real-browser.type selector:"input[name=password]" text:"yourpassword" submit:true
-npx mcporter call real-browser.wait text:"Dashboard" timeout:10000
+npx mcporter call browser-mcp.navigate url:"https://site.com/login"
+npx mcporter call browser-mcp.snapshot        # find input selectors
+npx mcporter call browser-mcp.type selector:"input[name=email]" text:"you@email.com"
+npx mcporter call browser-mcp.type selector:"input[name=password]" text:"yourpassword" submit:true
+npx mcporter call browser-mcp.wait text:"Dashboard" timeout:10000
 ```
 
 ### Extract structured data
 ```bash
-npx mcporter call real-browser.evaluate \
+npx mcporter call browser-mcp.evaluate \
   script:"() => Array.from(document.querySelectorAll('table tr')).map(r => r.innerText).join('\n')"
 ```
 

@@ -1,5 +1,5 @@
 {
-  "name": "real-browser-mcp",
+  "name": "browser-mcp-mcp",
   "version": "1.0.0",
   "description": "MCP server that connects to your real running browser via CDP",
   "type": "module",

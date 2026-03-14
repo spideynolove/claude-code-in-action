@@ -51,7 +51,7 @@ JSON args (fallback):
 npx mcporter call server '{"key": "value"}'
 ```
 
-Available servers: repomix, knowledge-graph, sequential-thinking, playwright, real-browser
+Available servers: repomix, knowledge-graph, sequential-thinking, playwright, browser-mcp
 
 ## Output format
 
