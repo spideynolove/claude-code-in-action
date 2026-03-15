@@ -1,0 +1,17 @@
+op3 books to learn git actions in a table
+
+    ┌─────┬─────────────────────────────────────────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+    │  #  │                          Book                           │                                                       Why                                                        │
+    ├─────┼─────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+    │ 1   │ Learning GitHub Actions — Brent Laster (O'Reilly, 2024) │ Most comprehensive single resource. Covers workflows, custom actions, security, self-hosted runners, and CI/CD   │
+    │     │                                                         │ patterns from basics to advanced.                                                                                │
+    ├─────┼─────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+    │ 2   │ GitHub Actions in Action — Michael Kaufmann (Manning,   │ Hands-on project-based approach. Strong on real-world CI/CD pipelines, matrix builds, reusable workflows, and    │
+    │     │ 2024)                                                   │ deploying to cloud providers.                                                                                    │
+    ├─────┼─────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+    │ 3   │ Automating Workflows with GitHub Actions — Priscila     │ Good entry point if you're new. Covers fundamentals clearly — events, triggers, secrets, artifacts, and building │
+    │     │ Heller (Packt, 2021)                                    │  custom JavaScript/Docker actions.                                                                               │
+    └─────┴─────────────────────────────────────────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+    For your specific use case (Claude Code + multi-user collaboration), #1 is the best fit — it has dedicated sections on webhook events, issue_comment triggers, and managing secrets
+    across collaborators.
