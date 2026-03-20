@@ -1,0 +1,8 @@
+{
+  "_comment": "Fix: superpowers loaded from two registries causes every skill to appear twice in /context.",
+  "_fix": "Set the claude-plugins-official copy to false; keep superpowers-marketplace as canonical.",
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": false,
+    "superpowers@superpowers-marketplace": true
+  }
+}
