@@ -1,0 +1,37 @@
+{
+  "_comment": "Merge the 'hooks' block into your ~/.claude/settings.json. Replace YOUR_USER with your username.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Grep|Glob|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /home/YOUR_USER/.claude/hooks/gitnexus/pre-tool-use.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /home/YOUR_USER/.claude/hooks/gitnexus/pre-tool-use.sh"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /home/YOUR_USER/.claude/hooks/gitnexus/session-start.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
