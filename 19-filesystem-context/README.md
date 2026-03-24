@@ -7,14 +7,14 @@ Six patterns for using the filesystem as an unlimited context extension. The cor
 ## Install
 
 ```bash
-cp SKILL.md ~/.claude/skills/filesystem-context.md
+cp .claude/skills/filesystem-context.md ~/.claude/skills/filesystem-context.md
 ```
 
 ## What's here
 
 ```
 19-filesystem-context/
-├── SKILL.md          ← install to ~/.claude/skills/
+├── .claude/skills/filesystem-context.md  ← install to ~/.claude/skills/
 ├── README.md
 └── .claude/
     └── scratch/      ← convention: session-local offload directory

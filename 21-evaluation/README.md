@@ -5,7 +5,7 @@ Adapted from [agent-skills-for-context-engineering](../00-materials/repo/agent-s
 ## Install
 
 ```bash
-cp SKILL.md ~/.claude/skills/evaluation.md
+cp .claude/skills/evaluation.md ~/.claude/skills/evaluation.md
 ```
 
 ## Key takeaways
@@ -15,7 +15,7 @@ cp SKILL.md ~/.claude/skills/evaluation.md
 - Position bias in pairwise: always evaluate twice with swapped order
 - Start with 10–20 test cases; large improvements are visible immediately
 
-## What's in SKILL.md
+## What's in the skill
 
 - Evaluation approaches (direct scoring, pairwise, end-state)
 - Bias catalogue + mitigations

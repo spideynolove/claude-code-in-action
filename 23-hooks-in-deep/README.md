@@ -1,4 +1,4 @@
-# 12-hooks-in-deep
+# 23-hooks-in-deep
 
 Advanced Claude Code hook types adapted from [disler/claude-code-hooks-mastery](https://github.com/disler/claude-code-hooks-mastery).
 
@@ -25,7 +25,7 @@ Fires before `/compact` rewrites the conversation. Copies the full transcript JS
 ## Structure
 
 ```
-12-hooks-in-deep/
+23-hooks-in-deep/
 ├── .claude/
 │   ├── hooks/
 │   │   ├── SubagentStop/subagent_stop.py

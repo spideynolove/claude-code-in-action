@@ -117,7 +117,7 @@ For reference: the autocompact buffer in Claude Code triggers at ~33K tokens res
 CLAUDE.md is your system prompt. Apply the same rules: clear section headers, critical rules at the top, references via `@file` instead of inline copy-paste, specific enough to guide but not so granular it becomes fragile.
 
 ### Hooks as Context Controllers
-- `PreCompact` hook (see `12-hooks-in-deep/`) — fires before `/compact` rewrites transcript; back up first
+- `PreCompact` hook (see `23-hooks-in-deep/`) — fires before `/compact` rewrites transcript; back up first
 - `Stop` hook (see `03-auto-simplify/`) — fires at session end; write structured summary to `.claude/last-session.md`
 - `UserPromptSubmit` hook — can inject context or gate requests before they consume tokens
 

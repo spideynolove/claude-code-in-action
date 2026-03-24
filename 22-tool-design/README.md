@@ -7,7 +7,7 @@ Principles for designing tools that agents use reliably. Directly applicable to 
 ## Install
 
 ```bash
-cp SKILL.md ~/.claude/skills/tool-design.md
+cp .claude/skills/tool-design.md ~/.claude/skills/tool-design.md
 ```
 
 ## Key takeaways
@@ -24,5 +24,5 @@ cp SKILL.md ~/.claude/skills/tool-design.md
 |---------|-------------------|
 | MCP naming `ServerName:tool_name` | `02-mcp/` (fix any bare tool references) |
 | Consolidation check | Any new MCP server in `02-mcp/` |
-| Error message design | All hooks in `03-auto-simplify/`, `12-hooks-in-deep/` |
+| Error message design | All hooks in `03-auto-simplify/`, `23-hooks-in-deep/` |
 | Tool optimization with Claude | Use against any MCP tool that generates wrong calls |
