@@ -35,7 +35,7 @@ Check if `.aim/roles.json` exists:
 [ -f .aim/roles.json ] && echo "Roles defined" || echo "NEEDS_ROLES"
 ```
 
-If NEEDS_ROLES: run `/detect-roles` to detect project type and generate roles.
+If NEEDS_ROLES: run `/detect-team` to detect project type and generate roles.
 
 ## Summary
 
