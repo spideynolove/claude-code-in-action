@@ -1,0 +1,7 @@
+{
+  "name": "quality-gate",
+  "version": "1.0.0",
+  "description": "Code quality checks: review command + auditor agent + edit logging hook",
+  "author": { "name": "example" },
+  "license": "MIT"
+}
