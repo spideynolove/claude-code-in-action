@@ -7,9 +7,9 @@
 | Round | Repo | Status | Borrowed | Already Covered | Skipped |
 |-------|------|--------|----------|-----------------|---------|
 | 1 | humanlayer | complete | plan-lifecycle (create/iterate/implement/validate) | handoff | local_review, debug, founder_mode, oneshot, TODO annotations |
+| 2 | get-shit-done | complete | .planning/ convention + STATE.md + REQUIREMENTS template + forensics | pause/resume (YAML handoff), plan pipeline, autonomous (ralph-loop) | wave execution, health check |
 
 ## Remaining
-get-shit-done
 cc-sdd
 claude-code-best-practice
 nopua
