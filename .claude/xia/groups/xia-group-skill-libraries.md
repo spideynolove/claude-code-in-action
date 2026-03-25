@@ -10,9 +10,9 @@
 | 2 | agents | complete | tdd-cycle + conductor + llm-dev skills (3 patterns) | 5 | 2 |
 | 3 | continuous-claude-v3 | complete | YAML handoff + auto-handoff-stop + compound-learnings (3 patterns) | 5 | 2 |
 | 4 | claude-skills-alirezarezvani | complete | SKILL-AUTHORING-STANDARD + skill-security-auditor (2 patterns) | 7 | 5 |
+| 5 | everything-claude-code | complete | agentic-engineering skill (1 pattern) | 8 | 3 |
 
 ## Remaining
-5. everything-claude-code
 6. claude-skills-jeffallan
 7. ccplugins
 8. claude-skills-jezweb
