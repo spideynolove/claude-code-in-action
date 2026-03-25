@@ -10,6 +10,8 @@ Advanced hook types (Stop, Notification, SubagentStop, PreCompact) are in 03-aut
 
 Module 25-autoresearch (2026-03-25) borrows the full autoresearch plugin from uditgoenka/autoresearch: the autonomous Modify→Verify→Keep/Discard→Repeat loop (SKILL.md + autonomous-loop-protocol + results-logging), multi-persona swarm prediction (/autoresearch:predict — 5 personas, structured debate, anti-herd detection), autonomous security audit (/autoresearch:security — STRIDE + OWASP + 4 adversarial personas), scenario exploration engine (/autoresearch:scenario — 12 dimensions), and universal shipping workflow (/autoresearch:ship — 8-phase dry-run/rollback). The learn workflow (/autoresearch:learn) is deferred — preconditions and expected output documented in 25-autoresearch/PLAN.md.
 
+Module 26-security-quality-hooks (2026-03-25) borrows 5 PreToolUse hooks from davila7/claude-code-templates: secret-scanner (35+ regex patterns blocking commits with hardcoded secrets), dangerous-command-blocker (3-level guard: catastrophic/critical-path/suspicious), conventional-commits (denies non-conventional commit messages via JSON permissionDecision), tdd-gate (blocks production code edits without a corresponding test file), and plan-gate (non-blocking warning when editing source without recent .spec.md). These form a defense-in-depth policy enforcement layer at the agent boundary.
+
 ---
 
 ## Borrow history
@@ -21,3 +23,4 @@ Module 25-autoresearch (2026-03-25) borrows the full autoresearch plugin from ud
 | 2026-03-25 | agent-skills-for-context-engineering (local) | 5 context engineering SKILL.md files (18–22) | No context theory, no filesystem-context patterns, no memory systems comparison, no evaluation framework, no tool design principles | .claude/xia/patterns/xia-agent-skills-context-engineering.md |
 | 2026-03-25 | uditgoenka/autoresearch | autonomous-loop (core loop + results logging) | No Modify→Verify→Keep/Discard→Repeat loop; no bounded iteration; no git-as-memory; no TSV results log | .claude/xia/patterns/xia-autoresearch-uditgoenka-autonomous-loop.md |
 | 2026-03-25 | uditgoenka/autoresearch | predict + security + scenario + ship subcommands | No multi-persona swarm prediction; no STRIDE+OWASP audit; no scenario exploration; no shipping workflow | .claude/xia/patterns/xia-autoresearch-uditgoenka-subcommands.md |
+| 2026-03-25 | davila7/claude-code-templates | security-quality-hooks (5 hooks) | No secret scanning, no dangerous command blocking, no TDD gate, no conventional commits enforcement, no plan-gate | .claude/xia/patterns/xia-claude-code-templates-security-quality-hooks.md |
