@@ -11,8 +11,7 @@
 | 3 | cc-sdd | complete | EARS format + steering files + feature type classification + (P) markers | plan pipeline (humanlayer), TDD (wshobson) | spec.json approval gates |
 | 4 | claude-code-best-practice | complete | CLAUDE.md loading behavior + cross-model review + agent isolation/background/color fields | RPI workflow (plan lifecycle), settings/MCP | — |
 | 5 | nopua | complete | agency spectrum + cognitive ladder (failure-count→perspective-height) + responsible exit format | trust frame, Daoist methods (systematic-debugging), NOPUA-REPORT | trust frame, NOPUA-REPORT |
+| 6 | adversarial-spec | complete | consensus loop + early agreement check + preserve-intent + PRD→tech spec flow | session persistence (YAML handoff), export-tasks (implement_plan) | cost tracking, Telegram, saved profiles |
 
 ## Remaining
-claude-code-best-practice
-nopua
-adversarial-spec
+(none)
