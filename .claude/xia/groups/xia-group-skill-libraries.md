@@ -7,9 +7,9 @@
 | Round | Repo | Status | Borrowed | Already Covered | Skipped |
 |-------|------|--------|----------|-----------------|---------|
 | 1 | claude-code-templates | complete | security-quality-hooks (5 hooks) | 6 | 5 |
+| 2 | agents | complete | tdd-cycle + conductor + llm-dev skills (3 patterns) | 5 | 2 |
 
 ## Remaining
-2. agents
 3. continuous-claude-v3
 4. claude-skills-alirezarezvani
 5. everything-claude-code
