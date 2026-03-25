@@ -24,6 +24,10 @@ Module 26-security-quality-hooks (2026-03-25) borrows 5 PreToolUse hooks from da
 
 ---
 
+Module 30-plan-lifecycle (2026-03-25) borrows the 4-command plan pipeline from humanlayer/humanlayer: (1) `create_plan` — skeptical, interactive plan creation with parallel research agents, design option presentation, phasing approval, and a structured plan template with explicit automated + manual success criteria and "What We're NOT Doing" section; (2) `iterate_plan` — surgical plan updates grounded in codebase research, confirm-before-change, maintains automated/manual split; (3) `implement_plan` — phase-by-phase execution tracking checkboxes in the plan file, stops on reality/plan mismatch, pauses after automated checks for human to confirm manual steps; (4) `validate_plan` — post-implementation audit running all automated criteria, generating ✓/⚠️/✗ report per phase, listing remaining manual items. Plans stored in `.claude/plans/YYYY-MM-DD-description.md`.
+
+---
+
 ## Borrow history
 
 | Date | Source | Pattern | Gap filled | Saved to |
@@ -39,3 +43,4 @@ Module 26-security-quality-hooks (2026-03-25) borrows 5 PreToolUse hooks from da
 | 2026-03-25 | continuous-claude-v3 | YAML handoff + auto-handoff-stop + compound-learnings | Token-heavy handoffs; no context% gate; no session→skill feedback loop | .claude/xia/patterns/xia-continuous-claude-v3-session-continuity.md |
 | 2026-03-25 | wshobson/agents | tdd-cycle + conductor + llm-application-dev skills | No stateful TDD orchestration; no multi-track project management; no LLM app skills | .claude/xia/patterns/xia-agents-wshobson-tdd-conductor-llmdev.md |
 | 2026-03-25 | davila7/claude-code-templates | security-quality-hooks (5 hooks) | No secret scanning, no dangerous command blocking, no TDD gate, no conventional commits enforcement, no plan-gate | .claude/xia/patterns/xia-claude-code-templates-security-quality-hooks.md |
+| 2026-03-25 | humanlayer/humanlayer | plan-lifecycle (create/iterate/implement/validate) | No structured plan pipeline; no post-implementation validation; no automated vs manual success criteria split | .claude/xia/patterns/xia-humanlayer-plan-lifecycle.md |
