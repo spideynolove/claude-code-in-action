@@ -8,6 +8,8 @@ After borrowing from `claude-howto` (2026-03-25), A now also covers: slash comma
 
 Advanced hook types (Stop, Notification, SubagentStop, PreCompact) are in 03-auto-simplify and 23-hooks-in-deep. Five context engineering SKILL.md files have been added (18–22): context-engineering (fundamentals + degradation + compression + optimization collapsed into one reference), filesystem-context (scratch pad + plan persistence + sub-agent communication patterns), memory-systems (framework comparison: Mem0/Graphiti/Letta/Cognee + decision ladder), evaluation (LLM-as-judge + bias mitigation + 95%-variance finding), and tool-design (consolidation principle + MCP naming sharp edge + architectural reduction). All five install to ~/.claude/skills/.
 
+Module 25-autoresearch (2026-03-25) borrows the full autoresearch plugin from uditgoenka/autoresearch: the autonomous Modify→Verify→Keep/Discard→Repeat loop (SKILL.md + autonomous-loop-protocol + results-logging), multi-persona swarm prediction (/autoresearch:predict — 5 personas, structured debate, anti-herd detection), autonomous security audit (/autoresearch:security — STRIDE + OWASP + 4 adversarial personas), scenario exploration engine (/autoresearch:scenario — 12 dimensions), and universal shipping workflow (/autoresearch:ship — 8-phase dry-run/rollback). The learn workflow (/autoresearch:learn) is deferred — preconditions and expected output documented in 25-autoresearch/PLAN.md.
+
 ---
 
 ## Borrow history
@@ -17,3 +19,5 @@ Advanced hook types (Stop, Notification, SubagentStop, PreCompact) are in 03-aut
 | 2026-03-24 | disler/claude-code-hooks-mastery | Advanced hook types (Stop, Notification, SubagentStop, PreCompact) | No Stop/Notification/SubagentStop/PreCompact hooks; stop_hook_active trap unknown | .claude/xia/patterns/xia-claude-code-hooks-mastery-advanced-hooks.md |
 | 2026-03-25 | 00-materials/claude-howto | feature-taxonomy-6modules | 6 missing Claude Code feature modules (slash commands, memory, checkpoints, CLI mastery, plugins, advanced features) | .claude/xia/patterns/xia-claude-howto-feature-taxonomy.md |
 | 2026-03-25 | agent-skills-for-context-engineering (local) | 5 context engineering SKILL.md files (18–22) | No context theory, no filesystem-context patterns, no memory systems comparison, no evaluation framework, no tool design principles | .claude/xia/patterns/xia-agent-skills-context-engineering.md |
+| 2026-03-25 | uditgoenka/autoresearch | autonomous-loop (core loop + results logging) | No Modify→Verify→Keep/Discard→Repeat loop; no bounded iteration; no git-as-memory; no TSV results log | .claude/xia/patterns/xia-autoresearch-uditgoenka-autonomous-loop.md |
+| 2026-03-25 | uditgoenka/autoresearch | predict + security + scenario + ship subcommands | No multi-persona swarm prediction; no STRIDE+OWASP audit; no scenario exploration; no shipping workflow | .claude/xia/patterns/xia-autoresearch-uditgoenka-subcommands.md |
