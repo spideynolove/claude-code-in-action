@@ -30,6 +30,20 @@
 - Integration: [what/where]
 - E2E: [what/where]
 
+## Acceptance Criteria Format (EARS)
+
+Write acceptance criteria using EARS syntax — one behavior per statement, independently testable:
+
+| Pattern | Syntax | Use for |
+|---------|--------|---------|
+| Event-driven | `WHEN [event], THE [system] SHALL [response]` | Responses to triggers |
+| State-driven | `WHILE [precondition], THE [system] SHALL [response]` | State-dependent behavior |
+| Error/failure | `IF [trigger], THEN THE [system] SHALL [response]` | Error handling |
+| Optional feature | `WHERE [feature included], THE [system] SHALL [response]` | Conditional capabilities |
+| Always active | `THE [system] SHALL [response]` | Non-functional requirements |
+
+Rules: Use `SHALL` for mandatory, `SHOULD` for recommended. Name the concrete service, not "the system". No implementation details (WHAT not HOW).
+
 ## Security Baselines
 
 - [e.g. All PII encrypted at rest]
