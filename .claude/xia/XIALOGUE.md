@@ -2,6 +2,8 @@
 
 ## Current evolved state of A
 
+As of 2026-03-26, A includes a cross-tool skill sync adapter borrowed from runkids/skillshare: a minimal Python script (`~/.claude/hooks/sync-skills-to-codex.py`) that walks `~/.claude/skills/`, reads `targets:` frontmatter from each SKILL.md, and creates symlinks into `~/.codex/skills/`. A PostToolUse hook in `~/.claude/settings.json` fires automatically after any skill edit. A `.claude/skills/sync-to-codex.md` skill documents the workflow and manual invocation. Both Claude Code and Codex CLI read plain SKILL.md files from their own paths — the sync is purely `ln -s`, no translation.
+
 This repo is a hands-on Claude Code learning environment. It covers MCP server setup (02), hook-based auto-simplification (03), multi-agent UI pipelines (04), portable dotfiles and agent/skill systems (05), GitHub Actions integration (06), voice input (07), CLAUDE.md meta-instruction tuning (08), personal workflow kit assembly from gstack + ecc-tools (09), GitNexus code intelligence (10), and the Xỉa comparative borrowing methodology (11).
 
 After borrowing from `claude-howto` (2026-03-25), A now also covers: slash commands as skills (12), the CLAUDE.md memory hierarchy including auto-memory (13), checkpoint/rewind safe experimentation workflow (14), CLI mastery including print mode / JSON output / CI/CD integration (15), plugin bundling and distribution (16), and a consolidated advanced features module covering planning mode, permission modes, extended thinking, worktrees, sandboxing, background tasks, and agent teams (17).
@@ -59,3 +61,4 @@ Module 30-plan-lifecycle (2026-03-25) borrows the 4-command plan pipeline from h
 | 2026-03-25 | cc-sdd | EARS format + steering files + feature type classification + (P) markers | No structured acceptance criteria syntax; no persistent project memory; no design depth calibration | .claude/xia/patterns/xia-cc-sdd-patterns.md |
 | 2026-03-25 | get-shit-done | .planning/ convention + STATE.md + REQUIREMENTS template + forensics | No living project state; no requirements traceability; no post-mortem investigation | .claude/xia/patterns/xia-gsd-planning-patterns.md |
 | 2026-03-25 | adversarial-spec | consensus loop + early agreement check + preserve-intent + PRD→tech spec flow | No multi-round consensus loop; no anti-laziness verification; no removal-justification protocol; no PRD→tech continuation | .claude/xia/patterns/xia-adversarial-spec-patterns.md |
+| 2026-03-26 | runkids/skillshare | skill sync adapter (ln -s + targets frontmatter + manifest + PostToolUse hook) | No cross-tool skill export; skills siloed in .claude/skills/ with no path to Codex CLI | .claude/xia/patterns/xia-skillshare-runkids-sync-adapter.md |
