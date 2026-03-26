@@ -1,14 +1,9 @@
 {
-  "name": "browser-mcp-mcp",
-  "version": "1.0.0",
-  "description": "MCP server that connects to your real running browser via CDP",
+  "name": "browser-automation",
+  "version": "2.0.0",
+  "description": "Browser automation via dev-browser CLI (replaces custom MCP server)",
   "type": "module",
-  "main": "index.js",
   "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0",
-    "playwright": "^1.49.0"
+    "install-browser": "dev-browser install"
   }
 }
