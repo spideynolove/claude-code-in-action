@@ -7,7 +7,7 @@ Framework comparison + design patterns for agent memory that persists across ses
 ## Install
 
 ```bash
-cp SKILL.md ~/.claude/skills/memory-systems.md
+cp .claude/skills/memory-systems.md ~/.claude/skills/memory-systems.md
 ```
 
 ## Key finding

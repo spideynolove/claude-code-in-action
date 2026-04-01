@@ -4,10 +4,10 @@ Distilled from [agent-skills-for-context-engineering](../00-materials/repo/agent
 
 ## What's here
 
-`SKILL.md` — the combined reference. Install as a Claude Code skill:
+`.claude/skills/context-engineering.md` — the combined reference. Install as a Claude Code skill:
 
 ```bash
-cp SKILL.md ~/.claude/skills/context-engineering.md
+cp .claude/skills/context-engineering.md ~/.claude/skills/context-engineering.md
 ```
 
 Once installed, Claude activates it automatically when you ask about context limits, `/compact`, lost-in-middle, token costs, or observation masking.
@@ -28,7 +28,7 @@ Once installed, Claude activates it automatically when you ask about context lim
 | Pattern | Folder | Context engineering concept |
 |---------|--------|-----------------------------|
 | Stop hook writes session summary | `03-auto-simplify/` | Write bucket — save context outside window |
-| PreCompact hook backs up transcript | `12-hooks-in-deep/` | Write bucket + compression trigger |
+| PreCompact hook backs up transcript | `23-hooks-in-deep/` | Write bucket + compression trigger |
 | Sub-agents with isolated contexts | `05-subagents/` | Context partitioning |
 | Per-project CLAUDE.md | throughout | Stable system prompt prefix for KV-cache |
 | `/handoff` skill | `~/.claude/commands/` | Anchored iterative summarization format |

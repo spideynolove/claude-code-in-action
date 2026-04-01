@@ -46,7 +46,7 @@ shutil.copy2(transcript_path, backup_dir / f"{stem}_{trigger}_{ts}.jsonl")
 ## Seam
 
 - Stop + Notification → `03-auto-simplify/.claude/hooks/` + `settings.json`
-- SubagentStop + PreCompact → `12-hooks-in-deep/.claude/hooks/` + `settings.json`
+- SubagentStop + PreCompact → `23-hooks-in-deep/.claude/hooks/` + `settings.json`
 
 ## Delta from original
 
