@@ -19,10 +19,10 @@ Your prompt will contain:
 ### 1. Verify tool availability
 
 ```bash
-which <Tool>
+which ai-do
 ```
 
-If not found: write a failed result (see Step 5) with `"error": "CLI <Tool> not installed"` and stop. Do NOT substitute a different tool.
+If not found: write a failed result (see Step 5) with `"error": "ai-do not installed — run: pip install -e /path/to/heimdall"` and stop. Do NOT substitute a different tool.
 
 ### 2. Build context string
 
@@ -35,35 +35,13 @@ Combine role + task + predecessor context into a single prompt string.
 
 ### 3. Invoke tool
 
-**deepseek:**
+All tools are dispatched uniformly through `ai-do`, which routes to the correct model via CLIProxyAPI:
+
 ```bash
-deepseek -p "<role context + task prompt>"
+ai-do run "<role context + task prompt>" --model <Tool>
 ```
 
-**qwen:**
-```bash
-qwen --approval-mode full-auto -p "<role context + task prompt>"
-```
-
-**glm:**
-```bash
-glm -p "<role context + task prompt>"
-```
-
-**codex:**
-```bash
-codex exec "<role context + task prompt>"
-```
-
-**kimi:**
-```bash
-kimi --print -p "<role context + task prompt>" -y -o text
-```
-
-**gemini:**
-```bash
-gemini -y -m gemini-2.5-flash -p "<role context + task prompt>"
-```
+Where `<Tool>` is the value from `team.json` roster (e.g. `deepseek`, `qwen`, `glm`, `codex`, `gemini`, `kimi`). `ai-do` handles all per-model flags, authentication, and load balancing internally.
 
 ### 4. Capture output
 
